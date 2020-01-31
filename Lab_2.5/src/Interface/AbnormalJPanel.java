@@ -234,7 +234,7 @@ public class AbnormalJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null,"Record has been deleted");
             populateTable();
         }
-        else JOptionPane.showMessageDialog(null,"Please select a row");
+        else JOptionPane.showMessageDialog(null,"Please select a row.");
 
     }//GEN-LAST:event_btnDeleteActionPerformed
 
