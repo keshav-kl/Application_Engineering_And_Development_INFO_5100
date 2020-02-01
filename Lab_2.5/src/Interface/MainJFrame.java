@@ -71,11 +71,14 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
+        textMax.setText("140");
         textMax.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textMaxActionPerformed(evt);
             }
         });
+
+        textMin.setText("70");
 
         labelMax.setText("Max_BP :");
 
