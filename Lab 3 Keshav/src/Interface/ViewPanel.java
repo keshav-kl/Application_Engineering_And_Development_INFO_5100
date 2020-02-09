@@ -190,7 +190,7 @@ public class ViewPanel extends javax.swing.JPanel {
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
-       // this.rightPanel.remove(this);
+        this.panel.remove(this);
         CardLayout layout = (CardLayout) this.panel.getLayout();
         
         Component[] comps = this.panel.getComponents();
