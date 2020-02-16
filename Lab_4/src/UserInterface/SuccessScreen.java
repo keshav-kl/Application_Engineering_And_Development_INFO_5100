@@ -35,7 +35,7 @@ public class SuccessScreen extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
-        jLabel1.setText("Log in Successful");
+        jLabel1.setText("Login Successful!");
 
         jLabel2.setText("Welcome ");
 
