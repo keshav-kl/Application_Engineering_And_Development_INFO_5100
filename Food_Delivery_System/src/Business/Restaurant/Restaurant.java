@@ -1,0 +1,71 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Business.Restaurant;
+
+import Business.UserAccount.UserAccount;
+
+/**
+ *
+ * @author harold
+ */
+public class Restaurant {
+    private String restaurentName;
+    private String restaurentManager;
+    private Integer phoneNumber;
+    private String address;
+    private UserAccount userAccount;
+    
+    public Restaurant(){
+        userAccount = new UserAccount();
+    }
+
+    public String getRestaurentName() {
+        return restaurentName;
+    }
+
+    public void setRestaurentName(String restaurentName) {
+        this.restaurentName = restaurentName;
+    }
+
+    public String getRestaurentManager() {
+        return restaurentManager;
+    }
+
+    public void setRestaurentManager(String restaurentManager) {
+        this.restaurentManager = restaurentManager;
+    }
+
+    public Integer getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(Integer phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    
+    
+    
+    public UserAccount getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(UserAccount userAccount) {
+        this.userAccount = userAccount;
+    }
+    
+    @Override
+    public String toString(){
+        return restaurentName;
+    }
+}
