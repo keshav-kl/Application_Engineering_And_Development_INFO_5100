@@ -5,7 +5,6 @@
  */
 package Business.DeliveryMan;
 
-import Business.Customer.Customer;
 import Business.UserAccount.UserAccount;
 import java.util.ArrayList;
 
@@ -28,9 +27,9 @@ public class DeliveryManDirectory {
         this.deliveryManList = deliveryManList;
     }
     
-    public DeliveryMan createDeliveryMan(String name, UserAccount userAccount){
+     public DeliveryMan createDeliveryMan(String name, UserAccount userAccount){
         DeliveryMan d = new DeliveryMan();
-        d.setDeliveryManName(name);
+        d.setDeliveryManName(name);        
         d.setUserAccount(userAccount);
         deliveryManList.add(d);  
         return d;

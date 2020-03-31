@@ -32,11 +32,13 @@ public class ManageRestaurentsJPanel extends javax.swing.JPanel {
     public ManageRestaurentsJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem ecosystem) {
         initComponents();
         this.userProcessContainer = userProcessContainer;        
-        this.userAccount = account;
+        this.userAccount = account;        
         this.ecosystem = ecosystem;
         populateComboBox();
+        populateRequestTable();
+        btnSave.setEnabled(false);
+                
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -48,8 +50,8 @@ public class ManageRestaurentsJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        restJTable = new javax.swing.JTable();
-        restComboBox = new javax.swing.JComboBox();
+        tblRest = new javax.swing.JTable();
+        cbxRestRole = new javax.swing.JComboBox();
         btnCreate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         txtRestUsername = new javax.swing.JTextField();
@@ -67,21 +69,22 @@ public class ManageRestaurentsJPanel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         txtRestMan = new javax.swing.JTextField();
-        txtRestPass = new javax.swing.JPasswordField();
+        txtResPass = new javax.swing.JPasswordField();
+        btnSave = new javax.swing.JButton();
 
-        restJTable.setModel(new javax.swing.table.DefaultTableModel(
+        tblRest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+                {null, null, null, null, null}
             },
             new String [] {
-                "Restaurent Name", "Phone Number", "Address", "Username"
+                "Restaurant Name", "Restaurant Manager", "Phone Number", "Address", "Username"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true
+                false, true, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -92,7 +95,13 @@ public class ManageRestaurentsJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(restJTable);
+        jScrollPane1.setViewportView(tblRest);
+
+        cbxRestRole.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxRestRoleActionPerformed(evt);
+            }
+        });
 
         btnCreate.setText("Create");
         btnCreate.addActionListener(new java.awt.event.ActionListener() {
@@ -143,58 +152,65 @@ public class ManageRestaurentsJPanel extends javax.swing.JPanel {
 
         jLabel7.setText("Restaurent Manager:");
 
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(btnBack)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnRefresh))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(113, 113, 113)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane1)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtRestName, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxRestRole, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtRestMan, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(btnBack)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnRefresh))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addComponent(jLabel2)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(txtRestPhonNum, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel3)
-                                            .addGap(64, 64, 64)
-                                            .addComponent(txtRestAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(64, 64, 64)
+                                        .addComponent(txtRestAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtRestPass, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtRestUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel6)
-                                                .addComponent(jLabel1)
-                                                .addComponent(jLabel7))
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(txtRestName, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(restComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(txtRestMan, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel4)
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                                 .addComponent(jLabel5)
-                                                .addGap(144, 144, 144))
-                                            .addComponent(btnCreate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGap(26, 26, 26)
-                                    .addComponent(btnUpdateManager)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addGap(59, 70, Short.MAX_VALUE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 2, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jLabel4))
+                                        .addGap(55, 55, 55)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtRestUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                                            .addComponent(txtResPass))))
+                                .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(55, 55, 55)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnUpdateManager, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(177, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,7 +224,7 @@ public class ManageRestaurentsJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(restComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbxRestRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -226,47 +242,53 @@ public class ManageRestaurentsJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel3)
                     .addComponent(txtRestAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtRestUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtRestPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCreate)
-                    .addComponent(btnUpdateManager)
-                    .addComponent(btnDelete))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtRestUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtResPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnCreate)
+                            .addComponent(btnUpdateManager)
+                            .addComponent(btnDelete)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel5)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSave)
+                .addContainerGap(75, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-    
-    
-    
-    public void populateComboBox(){
-       restComboBox.removeAllItems();
-       restComboBox.addItem(Role.RoleType.RestaurantAdmin.toString());
+    public void populateRequestTable(){
+        
     }
     
+    public void populateComboBox(){
+       cbxRestRole.removeAllItems();
+       cbxRestRole.addItem(Role.RoleType.RestaurantAdmin.toString());
+    }
     public void populateTable(){
-        DefaultTableModel model = (DefaultTableModel) restJTable.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblRest.getModel();
 
         model.setRowCount(0);
         
             for (Restaurant restaurant : ecosystem.getRestaurantDirectory().getRestaurentList()) {
-                Object[] row = new Object[model.getColumnCount()];
+                Object[] row = new Object[5];
                 row[0] = restaurant;
-                row[1] = restaurant.getPhoneNumber();
-                row[2] = restaurant.getAddress();
-                row[3] = restaurant.getUserAccount().getUsername();
+                row[1] = restaurant.getRestaurentManager();
+                row[2] = restaurant.getPhoneNumber();
+                row[3] = restaurant.getAddress();
+                row[4] = restaurant.getUserAccount().getUsername();
 
                 model.addRow(row);
                 }  
-        
     }
     
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+
         populateTable();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
@@ -284,59 +306,83 @@ public class ManageRestaurentsJPanel extends javax.swing.JPanel {
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
-        
         String username = txtRestUsername.getText();
-        String password = String.valueOf(txtRestPass.getPassword());
+        String password = String.valueOf(txtResPass.getPassword());
+        String name = txtRestName.getText();
+        String manager = txtRestMan.getText();
+        String address = txtRestAdd.getText();
+        int phoneNumber = Integer.parseInt(txtRestPhonNum.getText());        
         
-        String restName = txtRestName.getText();
-        String restMan = txtRestMan.getText();
-        int phoneNum = Integer.parseInt(txtRestPhonNum.getText());
-        String address = txtRestAdd.getText();        
-        
-        Employee employee = ecosystem.getEmployeeDirectory().createEmployee(restMan);
+        Employee employee = ecosystem.getEmployeeDirectory().createEmployee(name);
         
         UserAccount account = ecosystem.getUserAccountDirectory().createUserAccount(username, password, employee, new AdminRole());
         
-        Restaurant restaurant = ecosystem.getRestaurantDirectory().createRestaurant(restName, phoneNum, address, account);      
+        Restaurant r = ecosystem.getRestaurantDirectory().createRestaurant(name, manager, address, phoneNumber, account);      
                 
         txtRestName.setText("");
         txtRestMan.setText("");
-        txtRestPhonNum.setText("");
         txtRestAdd.setText("");
+        txtRestPhonNum.setText("");
         txtRestUsername.setText("");
-        txtRestPass.setText("");
-        
+        txtResPass.setText("");
         JOptionPane.showMessageDialog(null, "Restaurant Created");
+        
     }//GEN-LAST:event_btnCreateActionPerformed
+
+    private void cbxRestRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxRestRoleActionPerformed
+        // TODO add your handling code here:
+        populateComboBox();
+    }//GEN-LAST:event_cbxRestRoleActionPerformed
 
     private void btnUpdateManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateManagerActionPerformed
         // TODO add your handling code here:
+        btnSave.setEnabled(true);
+        btnUpdateManager.setEnabled(false);
+         int selectedRow = tblRest.getSelectedRow();
         
-        int selectedRow = restJTable.getSelectedRow();
-
-        if (selectedRow >= 0) {
-            Restaurant r = (Restaurant) restJTable.getValueAt(selectedRow, 0);
+        if (selectedRow >= 0){
+            Restaurant rest = (Restaurant)tblRest.getValueAt(selectedRow, 0);
+            txtRestName.setText(rest.getRestaurentName());
+            txtRestMan.setText(rest.getRestaurentManager());
+            txtRestAdd.setText(rest.getAddress());
+            txtRestPhonNum.setText(Integer.toString(rest.getPhoneNumber()));
+            txtRestUsername.setText(rest.getUserAccount().getUsername());
+            txtResPass.setText(rest.getUserAccount().getPassword());
             
-            txtRestName.setText(r.getRestaurentName());
-            txtRestMan.setText(r.getRestaurentManager());
-            txtRestPhonNum.setText(Integer.toString(r.getPhoneNumber()));
-            txtRestAdd.setText(r.getAddress());
-            txtRestUsername.setText(r.getUserAccount().getUsername());
-            txtRestPass.setText(r.getUserAccount().getPassword());
-            
-        }else {
-            JOptionPane.showMessageDialog(null, "Please select a row");
-        }
-        txtRestName.getText();
-        txtRestAdd.getText();
-        txtRestAdd.getText();
-        txtRestUsername.getText();
-        
-        populateTable();
+       }
     }//GEN-LAST:event_btnUpdateManagerActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblRest.getSelectedRow();
+        
+        if (selectedRow >= 0){
+            Restaurant rest = (Restaurant)tblRest.getValueAt(selectedRow, 0);
+            rest.setRestaurentName(txtRestName.getText());
+            rest.setRestaurentManager(txtRestMan.getText());
+            rest.setPhoneNumber(Integer.parseInt(txtRestPhonNum.getText()));
+            rest.setAddress(txtRestAdd.getText());
+           
+            rest.getUserAccount().setUsername(txtRestUsername.getText());
+            rest.getUserAccount().setPassword(String.valueOf(txtResPass.getPassword()));
+             btnSave.setEnabled(false);
+             btnUpdateManager.setEnabled(true);
+            
+        }
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
+        int selectedRow = tblRest.getSelectedRow();
+        
+        if (selectedRow >= 0){
+            Restaurant rest = (Restaurant)tblRest.getValueAt(selectedRow, 0);
+            int i = ecosystem.getRestaurantDirectory().getRestaurentList().indexOf(rest);
+            ecosystem.getRestaurantDirectory().getRestaurentList().remove(i);    
+            JOptionPane.showMessageDialog(null, "Restaurant deleted");
+        }else{
+        JOptionPane.showMessageDialog(null, "Please select a row");
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
 
@@ -345,7 +391,9 @@ public class ManageRestaurentsJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnRefresh;
+    private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUpdateManager;
+    private javax.swing.JComboBox cbxRestRole;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -354,12 +402,11 @@ public class ManageRestaurentsJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JComboBox restComboBox;
-    private javax.swing.JTable restJTable;
+    private javax.swing.JTable tblRest;
+    private javax.swing.JPasswordField txtResPass;
     private javax.swing.JTextField txtRestAdd;
     private javax.swing.JTextField txtRestMan;
     private javax.swing.JTextField txtRestName;
-    private javax.swing.JPasswordField txtRestPass;
     private javax.swing.JTextField txtRestPhonNum;
     private javax.swing.JTextField txtRestUsername;
     // End of variables declaration//GEN-END:variables

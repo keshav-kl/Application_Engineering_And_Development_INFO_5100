@@ -5,6 +5,7 @@
  */
 package Business.DeliveryMan;
 
+import Business.Order.Order;
 import Business.UserAccount.UserAccount;
 
 /**
@@ -12,19 +13,14 @@ import Business.UserAccount.UserAccount;
  * @author harold
  */
 public class DeliveryMan {
-    private String deliveryManName;
+    private String deliveryManName;    
     private UserAccount userAccount;
+    private Order order;
+    
     
     public DeliveryMan(){
         userAccount = new UserAccount();
-    }
-
-    public String getDeliveryManName() {
-        return deliveryManName;
-    }
-
-    public void setDeliveryManName(String deliveryManName) {
-        this.deliveryManName = deliveryManName;
+        order = new Order();
     }
 
     public UserAccount getUserAccount() {
@@ -34,6 +30,26 @@ public class DeliveryMan {
     public void setUserAccount(UserAccount userAccount) {
         this.userAccount = userAccount;
     }
+    
+    
+    public String getDeliveryManName() {
+        return deliveryManName;
+    }
+
+    public void setDeliveryManName(String deliveryManName) {
+        this.deliveryManName = deliveryManName;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+    
+    
+    
     
     @Override
     public String toString(){

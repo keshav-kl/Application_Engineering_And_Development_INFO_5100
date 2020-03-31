@@ -64,8 +64,7 @@ public class EcoSystem extends Organization{
 
     public void setRestaurantDirectory(RestaurantDirectory restaurantDirectory) {
         this.restaurantDirectory = restaurantDirectory;
-    }
-    
+    } 
     
     public boolean checkIfUserIsUnique(String userName){
        //
