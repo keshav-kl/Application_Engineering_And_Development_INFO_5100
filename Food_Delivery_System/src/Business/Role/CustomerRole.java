@@ -8,8 +8,9 @@ import Business.EcoSystem;
 
 import Business.Organization;
 import Business.UserAccount.UserAccount;
-import userinterface.CustomerRole.CustomerAreaJPanel;
+import userinterface.CustomerRole.CustomerOrderJPanel;
 import javax.swing.JPanel;
+import userinterface.CustomerRole.CustomerWorkAreaJPanel;
 
 /**
  *
@@ -19,7 +20,7 @@ public class CustomerRole extends Role{
 
     
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, EcoSystem ecosystem) {
-        return new CustomerAreaJPanel(userProcessContainer, account,ecosystem);
+        return new CustomerWorkAreaJPanel(userProcessContainer, account,ecosystem);
     }
     
     

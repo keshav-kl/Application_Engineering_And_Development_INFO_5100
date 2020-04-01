@@ -5,7 +5,6 @@
  */
 package Business.Restaurant;
 
-import Business.Customer.Customer;
 import Business.UserAccount.UserAccount;
 import java.util.ArrayList;
 
@@ -17,7 +16,7 @@ public class RestaurantDirectory {
     private ArrayList<Restaurant> restaurentList;
 
     public RestaurantDirectory() {
-        restaurentList = new ArrayList<>();
+        restaurentList = new ArrayList<Restaurant>();
     }
 
     public ArrayList<Restaurant> getRestaurentList() {
@@ -28,14 +27,16 @@ public class RestaurantDirectory {
         this.restaurentList = restaurentList;
     }
     
-    public Restaurant createRestaurant(String restName, int phoneNumber, String address, UserAccount userAccount){
+    public Restaurant createRestaurant(String name,String nameManager, String address, int phoneNumber, UserAccount userAccount){
         Restaurant r = new Restaurant();
-        r.setRestaurentName(restName);
-        //r.setRestaurentManager(restMan);
-        r.setPhoneNumber(phoneNumber);
+        r.setRestaurentName(name);
+        r.setRestaurentManager(nameManager);
         r.setAddress(address);
+        r.setPhoneNumber(phoneNumber);
         r.setUserAccount(userAccount);
         restaurentList.add(r);  
         return r;
     }
+    
+    
 }

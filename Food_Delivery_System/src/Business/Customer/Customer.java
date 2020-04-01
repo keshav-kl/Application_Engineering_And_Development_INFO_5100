@@ -5,7 +5,9 @@
  */
 package Business.Customer;
 
+import Business.Order.Order;
 import Business.UserAccount.UserAccount;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,9 +18,11 @@ public class Customer {
     private String custAddress;
     private int custPhoneNumber; 
     private UserAccount userAccount;
+    private ArrayList<Order> orderList;
    
     public Customer(){
         userAccount = new UserAccount();
+        orderList = new ArrayList<>();
     }
 
     public UserAccount getUserAccount() {
@@ -52,6 +56,17 @@ public class Customer {
     public void setCustPhoneNumber(int custPhoneNumber) {
         this.custPhoneNumber = custPhoneNumber;
     }
+
+    public ArrayList<Order> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(ArrayList<Order> orderList) {
+        this.orderList = orderList;
+    }
+
+    
+    
     
     @Override
     public String toString(){

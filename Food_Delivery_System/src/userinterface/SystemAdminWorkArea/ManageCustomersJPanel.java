@@ -36,6 +36,7 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
         this.userAccount = account;
         this.ecosystem = ecosystem;
         populateComboBox();
+         btnSave.setEnabled(false);
         
     }
 
@@ -67,6 +68,7 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
         btnUpdateCust = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         txtCustPass = new javax.swing.JPasswordField();
+        btnSave = new javax.swing.JButton();
 
         custJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -140,6 +142,18 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
         });
 
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -187,10 +201,12 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
                                                 .addComponent(txtCustPass))))
                                     .addComponent(btnCreate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(36, 36, 36)
-                                .addComponent(btnUpdateCust)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnUpdateCust, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
                                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(59, 73, Short.MAX_VALUE))
+                .addGap(59, 181, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,14 +246,12 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
                     .addComponent(btnCreate)
                     .addComponent(btnUpdateCust)
                     .addComponent(btnDelete))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSave)
+                .addContainerGap(42, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-    
-    public void populateRequestTable(){
-        
-    }
-    
+       
     public void populateComboBox(){
        cbxRole.removeAllItems();
        cbxRole.addItem(Role.RoleType.Customer.toString());
@@ -319,12 +333,39 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
         }else {
             JOptionPane.showMessageDialog(null, "Please select a row");
         }
-        txtCustName.getText();
-        txtCustAdd.getText();
-        txtCustPhoneNum.getText();
-        txtCustUserName.getText();
-        populateTable();
+        
     }//GEN-LAST:event_btnUpdateCustActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = custJTable.getSelectedRow();
+        
+        if (selectedRow >= 0){
+            Customer c = (Customer)custJTable.getValueAt(selectedRow, 0);
+            int i = ecosystem.getCustomerDirectory().getCustomerList().indexOf(c);
+            ecosystem.getCustomerDirectory().getCustomerList().remove(i);    
+            JOptionPane.showMessageDialog(null, "Customer deleted");
+        }else{
+        JOptionPane.showMessageDialog(null, "Please select a row");
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = custJTable.getSelectedRow();
+        
+        if (selectedRow >= 0){
+            Customer c = (Customer)custJTable.getValueAt(selectedRow, 0);
+            c.setCustName(txtCustName.getText());
+            c.setCustAddress(txtCustAdd.getText());
+            c.setCustPhoneNumber(Integer.parseInt(txtCustPhoneNum.getText()));
+            c.getUserAccount().setUsername(txtCustUserName.getText());
+            c.getUserAccount().setPassword(String.valueOf(txtCustPass.getPassword()));
+             btnSave.setEnabled(false);
+             btnUpdateCust.setEnabled(true);
+            
+        }
+    }//GEN-LAST:event_btnSaveActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -332,6 +373,7 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnRefresh;
+    private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUpdateCust;
     private javax.swing.JComboBox cbxRole;
     private javax.swing.JTable custJTable;
